@@ -1,21 +1,37 @@
 # 🍕 Pizza Order (Mon–Fri) WhatsApp Form
 
-A lightweight single-file web app for quick pizza orders on weekdays (Monday–Friday).
+Front‑end only, single file. Touch‑friendly spacing. No login. Opens WhatsApp with a drafted order.
 
-## Organizer
-**Purcy**  
-WhatsApp: [+59995120536](https://wa.me/59995120536)
+## Public Flow
+1. See announcement banner and weekday info.
+2. Enter **name**, choose **amount of pizza(s)** (1–4), select **day** (Mon–Fri).
+3. Optionally add a **note** (e.g., crunchy/no cheese/address).
+4. Tap **Send via WhatsApp** → review and send.
 
-## How it Works
-- Choose your **name**, **order type**, and **day**.
-- Optionally add an **announcement** (e.g., “Special only on Tuesday”) and a **special note** (like OrbitCard discounts).
-- When you hit **Send via WhatsApp**, it opens your WhatsApp with a prefilled order message ready to send.
+## Admin Settings (edit in `index.html`)
+At the top of the script, change:
+```js
+const ORGANIZER_NAME = 'Purcy';
+const PHONE_DEFAULT = '59995120536'; // digits only, no +
+const ANNOUNCEMENT_DEFAULT = 'ALV pizza special. Delivery 10:30 (make group of 4 if you want)';
+const TITLE_DEFAULT = '🍕 Fast Pizza Order (Mon–Fri)';
+```
+These are not editable by the public.
 
-## To Host
-1. Put this `index.html` on GitHub Pages, Netlify, or any static host.
-2. Optionally add an `/images` folder with promotional assets.
+## Optional: Per‑office Links via URL
+You can override fields without editing the file by adding URL params:
+- `?ann=Text` → Announcement
+- `&title=Text` → Page title
+- `&phone=5999XXXXXXX` → Target WhatsApp number
+- `&org=Name` → Organizer name
 
-## Example Directory
+**Example**
+```
+https://yourdomain.com/index.html?ann=ALV%20special%20Fri%2010%3A30&org=HR%20Team&phone=59991234567&title=🍕%20HR%20Pizza%20Order
+```
+This lets you clone to other offices using unique links, no code edits.
+
+## Directory
 ```
 pizza-order/
 ├── index.html
@@ -23,3 +39,8 @@ pizza-order/
 └── images/
     └── teaser.jpg
 ```
+
+## Notes
+- 1 pizza = 8 slices.
+- Uses `window.location.href` to open `wa.me` for better mobile behaviour.
+- Name is saved locally (`localStorage`) for convenience.
