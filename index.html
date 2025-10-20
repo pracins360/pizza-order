@@ -1,3 +1,4 @@
+<!-- v1.1: synced content -->
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -7,101 +8,36 @@
   <title>Pizza Order (Mon–Fri) · WhatsApp</title>
   <meta name="description" content="Quick weekday pizza order form that drafts a WhatsApp message with your order." />
   <style>
-    :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --text: #ffffff;
-      --muted: #cbd5e1;
-      --accent: #22c55e;
-      --ring: rgba(34, 197, 94, 0.35);
-      --line: rgba(255, 255, 255, 0.12);
-    }
-    html, body {
-      height: 100%;
-    }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: var(--text);
-      margin: 0;
-      display: grid;
-      place-items: start center;
-      padding: 24px;
-    }
-    .container {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 24px;
-      width: min(720px, 94vw);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-    }
-    h1 {
-      font-size: 22px;
-      margin: 0 0 6px 0;
-    }
-    .sub {
-      color: var(--muted);
-      margin: 0 0 12px 0;
-    }
-    .announce {
-      margin: 8px 0 16px 0;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px dashed var(--line);
-      background: #0b1224;
-    }
-    label {
-      display: block;
-      font-weight: 700;
-      margin-top: 14px;
-      margin-bottom: 6px;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-    }
-    input, select, textarea {
-      background: #0b1224;
-      color: var(--text);
-      padding: 14px 16px;
-      line-height: 1.6;
-    }
-    textarea {
-      min-height: 96px;
-      resize: vertical;
-    }
-    button {
-      appearance: none;
-      background: linear-gradient(180deg, var(--accent), #10b981);
-      color: #032612;
-      font-weight: 800;
-      padding: 14px 18px;
-      margin-top: 16px;
-      border: none;
-      cursor: pointer;
-    }
-    button:focus, input:focus, select:focus, textarea:focus {
-      outline: none;
-      box-shadow: 0 0 0 6px var(--ring);
-    }
-    .row {
-      display: grid;
-      gap: 10px;
-    }
-    .hint {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 4px;
-    }
+    :root { --bg:#0f172a; --card:#111827; --text:#ffffff; --muted:#cbd5e1; --accent:#22c55e; --accent2:#10b981; --ring:rgba(34,197,94,.35); --line:rgba(255,255,255,.12); }
+    html, body { height:100%; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial; background:var(--bg); color:var(--text); margin:0; display:grid; place-items:start center; padding:24px }
+    .container { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px; width:min(820px,94vw); box-shadow:0 12px 40px rgba(0,0,0,.35) }
+    h1{ font-size:22px; margin:0 0 6px }
+    .sub{ color:var(--muted); margin:0 0 12px }
+    .announce{ margin:8px 0 16px; padding:12px 14px; border-radius:12px; border:1px dashed var(--line); background:#0b1224 }
+    label{ display:block; font-weight:700; margin-top:16px; margin-bottom:6px }
+    input, select, textarea, button{ width:100%; border-radius:14px; border:1px solid var(--line) }
+    input, select, textarea{ background:#0b1224; color:var(--text); padding:16px 18px; line-height:1.8 }
+    textarea{ min-height:110px; resize:vertical }
+    button{ appearance:none; background:linear-gradient(180deg,var(--accent),var(--accent2)); color:#032612; font-weight:800; padding:16px 20px; margin-top:18px; border:none; cursor:pointer }
+    button:focus, input:focus, select:focus, textarea:focus{ outline:none; box-shadow:0 0 0 8px var(--ring) }
+    .row{ display:grid; gap:12px }
+    .hint{ color:var(--muted); font-size:12px; margin-top:6px }
+    .toolbar{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px }
+    .ghost{ background:transparent; border:1px solid var(--line); color:var(--text) }
+    .builder{ margin-top:18px; padding:16px; border:1px solid var(--line); border-radius:14px; background:#0b1224; display:none }
+    .builder h2{ font-size:16px; margin:0 0 8px }
+    .outbox{ background:#050b1a; padding:12px; border-radius:12px; border:1px solid var(--line); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px; overflow:auto }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="toolbar">
+      <button id="toggleBuilder" class="ghost" type="button">🔗 Customize link (admin)</button>
+    </div>
     <h1>🍕 Fast Pizza Order (Mon–Fri)</h1>
-    <p class="sub">This offer ends soon. Special price Cg 25(incl. delivery). Pizza: medium size, 8 slices</p>
-    <div class="announce" id="announceView">📣 Office/ Work Pizza Special. Delivery 10:30+ (make group of 4 if you want)</div>
+    <p class="sub">1 pizza = 8 slices.</p>
+    <div class="announce" id="announceView">📣 ALV pizza special. Delivery 10:30 (make group of 4 if you want)</div>
 
     <form id="orderForm" class="row">
       <div>
@@ -110,7 +46,7 @@
       </div>
 
       <div>
-        <label for="qty">Amount pizza(s)[Pizza: H&Cheeese "special price Cg 25, limitted time*</label>
+        <label for="qty">Amount pizza(s)</label>
         <select id="qty">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -137,36 +73,73 @@
       </div>
 
       <button type="submit">Send via WhatsApp</button>
-      <div class="hint">After tapping, WhatsApp opens with your order. Review and press Send.* Offer ends 25 October 2025</div>
+      <div class="hint">After tapping, WhatsApp opens with your order. Review and press Send.</div>
     </form>
+
+    <!-- Admin Link Builder -->
+    <div id="builder" class="builder">
+      <h2>🔧 Build a custom link for another office</h2>
+      <div class="row">
+        <div>
+          <label for="bTitle">Title</label>
+          <input id="bTitle" placeholder="e.g. 🍕 HR Pizza Order (Mon–Fri)" />
+        </div>
+        <div>
+          <label for="bOrg">Organizer name</label>
+          <input id="bOrg" placeholder="e.g. HR Team" />
+        </div>
+        <div>
+          <label for="bPhone">WhatsApp number (digits only, no +)</label>
+          <input id="bPhone" placeholder="e.g. 59991234567" />
+        </div>
+        <div>
+          <label for="bAnn">Announcement banner</label>
+          <input id="bAnn" placeholder="e.g. HR pizza special. Delivery 10:30" />
+        </div>
+        <button id="buildBtn" type="button">Generate link</button>
+        <div>
+          <label>Result</label>
+          <div id="builtUrl" class="outbox"></div>
+          <div class="toolbar" style="margin-top:8px">
+            <button id="copyLink" type="button" class="ghost">Copy link</button>
+            <button id="openLink" type="button" class="ghost">Open link</button>
+            <button id="shareLink" type="button" class="ghost">Share</button>
+          </div>
+          <div class="hint">Tip: Save different links for each office (Finance, HR, Sales, etc.). No file edits needed.</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
+    // ====== ADMIN DEFAULTS ======
     const ORGANIZER_NAME = 'Purcy';
     const PHONE_DEFAULT = '59995120536';
-    const ANNOUNCEMENT_DEFAULT = 'Office/ Work Pizza Special. Delivery 10:30 (make group of 4 if you want)';
+    const ANNOUNCEMENT_DEFAULT = 'ALV pizza special. Delivery 10:30 (make group of 4 if you want)';
     const TITLE_DEFAULT = '🍕 Fast Pizza Order (Mon–Fri)';
 
+    // URL param overrides (for per-office links)
     const params = new URLSearchParams(location.search);
     const ANNOUNCEMENT = params.get('ann') ? decodeURIComponent(params.get('ann')) : ANNOUNCEMENT_DEFAULT;
     const PHONE = params.get('phone') || PHONE_DEFAULT;
     const ORGANIZER = params.get('org') || ORGANIZER_NAME;
     const TITLE = params.get('title') || TITLE_DEFAULT;
 
+    // Apply UI
     document.title = 'Pizza Order (Mon–Fri) · WhatsApp';
     document.querySelector('h1').textContent = TITLE;
     document.getElementById('announceView').textContent = '📣 ' + ANNOUNCEMENT;
 
+    // Elements
     const form = document.getElementById('orderForm');
     const nameEl = document.getElementById('name');
     const qtyEl = document.getElementById('qty');
     const dayEl = document.getElementById('day');
     const noteEl = document.getElementById('note');
 
-    try {
-      const saved = localStorage.getItem('pizza_name');
-      if (saved) nameEl.value = saved;
-    } catch {}
+    // Persist name locally for convenience
+    try { const saved = localStorage.getItem('pizza_name'); if (saved) nameEl.value = saved; } catch {}
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -174,14 +147,9 @@
       const qty = parseInt(qtyEl.value, 10) || 1;
       const day = dayEl.value;
       const note = noteEl.value.trim();
-      if (!nameVal) {
-        alert('Please enter your name.');
-        return;
-      }
+      if (!nameVal) { alert('Please enter your name.'); return; }
 
-      try {
-        localStorage.setItem('pizza_name', nameVal);
-      } catch {}
+      try { localStorage.setItem('pizza_name', nameVal); } catch {}
 
       const approxSlices = qty * 8;
       const lines = [
@@ -197,10 +165,61 @@
       ].filter(Boolean);
 
       const link = `https://wa.me/${PHONE}?text=${encodeURIComponent(lines.join('\n'))}`;
-      window.location.href = link;
+      window.location.href = link; // better for mobile than window.open
+    });
+
+    // ====== LINK BUILDER ======
+    const toggleBuilder = document.getElementById('toggleBuilder');
+    const builder = document.getElementById('builder');
+    const bTitle = document.getElementById('bTitle');
+    const bOrg = document.getElementById('bOrg');
+    const bPhone = document.getElementById('bPhone');
+    const bAnn = document.getElementById('bAnn');
+    const buildBtn = document.getElementById('buildBtn');
+    const builtUrl = document.getElementById('builtUrl');
+    const copyLink = document.getElementById('copyLink');
+    const openLink = document.getElementById('openLink');
+    const shareLink = document.getElementById('shareLink');
+
+    // Auto-open builder if ?builder=1
+    if (params.get('builder') === '1') builder.style.display = 'block';
+
+    toggleBuilder.addEventListener('click', () => {
+      builder.style.display = (builder.style.display === 'block') ? 'none' : 'block';
+    });
+
+    function buildLink(){
+      const base = location.origin + location.pathname; // keep same file path
+      const q = new URLSearchParams();
+      if (bAnn.value.trim()) q.set('ann', bAnn.value.trim());
+      if (bTitle.value.trim()) q.set('title', bTitle.value.trim());
+      if (bPhone.value.replace(/\D/g,'').length) q.set('phone', bPhone.value.replace(/\D/g,''));
+      if (bOrg.value.trim()) q.set('org', bOrg.value.trim());
+      const url = q.toString() ? `${base}?${q.toString()}` : base;
+      builtUrl.textContent = url;
+      return url;
+    }
+
+    buildBtn.addEventListener('click', buildLink);
+
+    copyLink.addEventListener('click', async () => {
+      const url = builtUrl.textContent || buildLink();
+      try { await navigator.clipboard.writeText(url); alert('Link copied!'); } catch { alert('Copy failed. Select and copy manually.'); }
+    });
+
+    openLink.addEventListener('click', () => {
+      const url = builtUrl.textContent || buildLink();
+      window.open(url, '_blank');
+    });
+
+    shareLink.addEventListener('click', async () => {
+      const url = builtUrl.textContent || buildLink();
+      if (navigator.share) {
+        try { await navigator.share({ title: 'Pizza Order Link', text: 'Custom office link', url }); } catch {}
+      } else {
+        try { await navigator.clipboard.writeText(url); alert('Link copied! Paste it to share.'); } catch { alert('Share not supported. Copy link instead.'); }
+      }
     });
   </script>
 </body>
-</html
-
-
+</html>
